@@ -23,7 +23,8 @@ public class UserService implements CRUDService<User> {
 	@Override
 	public User create(final User user) {
 
-		final var encodedPassword = new BCryptPasswordEncoder().encode(user.getPassword());
+		final var encodedPassword = new BCryptPasswordEncoder()
+				.encode(user.getPassword());
 		user.setPassword(encodedPassword);
 		
 		return CRUDService.super.create(user);

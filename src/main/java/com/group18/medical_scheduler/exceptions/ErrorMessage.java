@@ -1,23 +1,22 @@
 package com.group18.medical_scheduler.exceptions;
 
-public class ErrorMessage {
-	
-	public final String errorName;
-	public final String message;
-	public final String origin;
+public record ErrorMessage(
+		String errorName,
+		String message,
+		String origin) {
 	
 	public ErrorMessage(final Exception e) {
-		this.errorName = e.getClass().getSimpleName();
-		this.message = e.getMessage();
-		this.origin = (e.getStackTrace().length > 0) ?
-			e.getStackTrace()[0].toString() : "";
+		this(
+			e.getClass().getSimpleName(), 
+			e.getMessage(), 
+			(e.getStackTrace().length > 0) ? e.getStackTrace()[0].toString() : "");
 	}
 	
 	public ErrorMessage(final Exception e, final String message) {
-		this.errorName = e.getClass().getSimpleName();
-		this.message = message;
-		this.origin = (e.getStackTrace().length > 0) ? 
-			e.getStackTrace()[0].toString() : "";
+		this(
+			e.getClass().getSimpleName(), 
+			message, 
+			(e.getStackTrace().length > 0) ? e.getStackTrace()[0].toString() : "");
 	}
 	
 	@Override

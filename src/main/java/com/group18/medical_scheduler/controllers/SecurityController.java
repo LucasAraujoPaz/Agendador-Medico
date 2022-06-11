@@ -25,17 +25,17 @@ public class SecurityController {
 	private TokenService tokenService;
 	
 	@PostMapping("/login")
-	public ResponseEntity<?> login(@RequestBody @Valid final LoginDTO loginDTO) {
+	public ResponseEntity<String> login(@RequestBody @Valid final LoginDTO loginDTO) {
 		
-		final String token = authenticate(loginDTO.name(), loginDTO.password());
+		final String token = authenticate(loginDTO.email(), loginDTO.password());
 		
 		return ResponseEntity.ok(token);
 	}
 	
-	private String authenticate(final String name, final String password) {
+	private String authenticate(final String email, final String password) {
 
 		final var authenticationToken = 
-				new UsernamePasswordAuthenticationToken(name, password);
+				new UsernamePasswordAuthenticationToken(email, password);
 
 		final Authentication authentication = authenticationManager
 				.authenticate(authenticationToken);
