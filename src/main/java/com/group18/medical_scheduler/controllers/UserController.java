@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.group18.medical_scheduler.models.Authority;
+import com.group18.medical_scheduler.models.LoginDTO;
 import com.group18.medical_scheduler.models.User;
 import com.group18.medical_scheduler.services.UserService;
 
@@ -22,8 +24,9 @@ public class UserController {
 	private UserService userService; 
 	
 	@PostMapping
-	public User create(@RequestBody @Valid final User user) {
-		return userService.create(user);
+	public User create(@RequestBody @Valid final LoginDTO user) {
+		return userService.create(
+				new User(user.email(), user.password(), Authority.USER));
 	}
 	
 	@GetMapping("/{email}")

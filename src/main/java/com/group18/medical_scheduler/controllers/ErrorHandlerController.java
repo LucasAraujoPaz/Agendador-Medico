@@ -23,17 +23,17 @@ public class ErrorHandlerController implements ErrorController {
 			final MethodArgumentNotValidException exception) {
 	    
 	    final String message = exception.getBindingResult().getAllErrors()
-	    .stream()
-	    .map(error -> {
-	    	String fieldName = error instanceof FieldError ? 
-	    			((FieldError) error).getField() + " " : "";
-	    	
-	        String errorMessage = error.getDefaultMessage();
-	        
-	        return fieldName + errorMessage;
-	    })
-	    .reduce((a, b) -> a + "\n" + b)
-	    .orElse("");
+	    	.stream()
+    		.map(error -> {
+    			final String fieldName = error instanceof FieldError fieldError ? 
+    					fieldError.getField() + " " : "";
+    	
+    			final String errorMessage = error.getDefaultMessage();
+        
+    			return fieldName + errorMessage;
+    		})
+    		.reduce((a, b) -> a + "\n" + b)
+    		.orElse("");
 	    
 	    return new ErrorMessage(exception, message);
 	}

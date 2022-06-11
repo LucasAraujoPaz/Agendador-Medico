@@ -1,3 +1,5 @@
 package com.group18.medical_scheduler.models;
 
-public record LoginDTO(String email, String password) {}
+import javax.validation.constraints.NotBlank;
+
+public record LoginDTO(@NotBlank String email, @NotBlank String password) {}

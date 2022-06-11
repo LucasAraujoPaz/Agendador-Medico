@@ -11,23 +11,32 @@ function start() {
         const password = /** @type {HTMLInputElement} */
             (loginForm.elements.namedItem("password")).value;
 
-        const response = await fetch("/login", {
-            headers: { "Content-Type": "application/json" },
-            method: "POST",
-            body: JSON.stringify({ email, password })
-        });
         try {
-            if ( ! response.ok)
-                throw await response.json();
+            await doLogin({ email, password });
         } catch (/** @type {any} */ reason) {
             return alert(reason?.message ?? "Invalid E-mail/Password.");
         }
 
-        const jwt = await response.text();
-        document.cookie = `Authorization=Bearer ${jwt}`;
         index.main.innerHTML = "";
     }
 }
 
-const login = { start }
+/** @typedef {{email: string, password: string}} LoginDTO */
+
+/** @param {LoginDTO} loginDTO */
+async function doLogin(loginDTO) {
+    const response = await fetch("/login", {
+        headers: { "Content-Type": "application/json" },
+        method: "POST",
+        body: JSON.stringify(loginDTO)
+    });
+
+    if (!response.ok)
+        throw await response.json();
+
+    const jwt = await response.text();
+    document.cookie = `Authorization=Bearer ${jwt}`;
+}
+
+const login = { start };
 export { login };
