@@ -22,7 +22,7 @@ public class UserController {
 	private UserService userService; 
 	
 	@PostMapping
-	public User create(@RequestBody @Valid User user) {
+	public User create(@RequestBody @Valid final User user) {
 		return userService.create(user);
 	}
 	

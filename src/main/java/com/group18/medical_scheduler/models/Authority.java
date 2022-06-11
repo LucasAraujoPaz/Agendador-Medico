@@ -9,5 +9,6 @@ public enum Authority {
 		_USER = "'USER'",
 		_ADMINISTRATOR = "'ADMINISTRATOR'",
 		_BEGIN = "hasAnyAuthority({",
+		_OR = ", ",
 		_END = "})";
 }

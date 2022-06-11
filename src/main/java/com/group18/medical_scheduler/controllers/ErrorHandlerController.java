@@ -19,7 +19,7 @@ public class ErrorHandlerController implements ErrorController {
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
-	public Object handleValidationExceptions(
+	public ErrorMessage handleValidationExceptions(
 			final MethodArgumentNotValidException exception) {
 	    
 	    final String message = exception.getBindingResult().getAllErrors()
