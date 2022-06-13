@@ -38,5 +38,9 @@ async function doLogin(loginDTO) {
     document.cookie = `Authorization=Bearer ${jwt}`;
 }
 
-const login = { start };
+function doLogout() {
+    document.cookie = "Authorization=; path=/; max-age=-1;";
+}
+
+const login = { start, doLogout };
 export { login };
