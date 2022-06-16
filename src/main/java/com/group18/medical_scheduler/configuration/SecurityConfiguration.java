@@ -41,9 +41,11 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(final HttpSecurity http) throws Exception {
 		http.authorizeRequests()
-		.antMatchers(HttpMethod.resolve(null), "/**").permitAll() // ALLOW FREE ACCESS
-    	//.antMatchers(HttpMethod.POST, "/login").permitAll()	  // RESTRICT ACCESS
-    	.anyRequest().authenticated().and()
+			//.antMatchers("/**").permitAll() // ALLOW FREE ACCESS
+			.antMatchers("/*", "/error", "/h2-console/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/login", "/api/users").permitAll()
+			.antMatchers("/api/**").authenticated()
+			.anyRequest().authenticated().and()
     	.cors().and()
     	.headers().frameOptions().disable().and()
     	.csrf().disable()

@@ -17,7 +17,7 @@ import com.group18.medical_scheduler.models.User;
 import com.group18.medical_scheduler.services.UserService;
 
 @RestController
-@RequestMapping("/users")
+@RequestMapping("/api/users")
 public class UserController {
 	
 	@Autowired
@@ -29,18 +29,13 @@ public class UserController {
 				new User(user.email(), user.password(), Authority.USER));
 	}
 	
-	@GetMapping("/{email}")
-	public User findByEmail(@PathVariable final String email) {
-		return userService.findByEmail(email);
+	@GetMapping("/me")
+	public User getLoggedInUser() {
+		return userService.getLoggedInUser();
 	}
 
-	@GetMapping
-	public Iterable<User> findAll() {
-		return userService.findAll();
+	@DeleteMapping("/{id}")
+	public void delete(@PathVariable final int id) {
+		userService.delete(id);
 	}
-	
-	@DeleteMapping("/{email}")
-	public void deleteByEmail(@PathVariable final String email) {
-		userService.deleteByEmail(email);
-	}	
 }

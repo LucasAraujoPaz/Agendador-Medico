@@ -7,7 +7,6 @@
 		"alwaysStrict": true,
 		"checkJs": true,
 		"forceConsistentCasingInFileNames": true,
-		"module": "ESNext",
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,

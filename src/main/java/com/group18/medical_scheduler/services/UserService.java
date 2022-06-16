@@ -2,6 +2,7 @@ package com.group18.medical_scheduler.services;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -36,8 +37,8 @@ public class UserService implements CRUDService<User> {
 				.orElseThrow();
 	}
 	
-	public void deleteByEmail(final String email) {
-		final User user = this.findByEmail(email);
-		userRepository.delete(user);
+	public User getLoggedInUser() {
+		final var authentication = SecurityContextHolder.getContext().getAuthentication();
+		return findByEmail(authentication.getName());
 	}
 }

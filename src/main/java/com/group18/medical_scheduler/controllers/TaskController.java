@@ -17,7 +17,7 @@ import com.group18.medical_scheduler.models.Task;
 import com.group18.medical_scheduler.services.TaskService;
 
 @RestController
-@RequestMapping("/tasks")
+@RequestMapping("/api/tasks")
 public class TaskController implements CRUD<Task> {
 
 	@Autowired

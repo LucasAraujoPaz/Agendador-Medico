@@ -17,7 +17,7 @@ function start() {
             return alert(reason?.message ?? "Invalid E-mail/Password.");
         }
 
-        index.main.innerHTML = "";
+        index.start();
     }
 }
 
@@ -35,7 +35,7 @@ async function doLogin(loginDTO) {
         throw await response.json();
 
     const jwt = await response.text();
-    document.cookie = `Authorization=Bearer ${jwt}`;
+    document.cookie = `Authorization=Bearer_${jwt}; max-age=3600;`;
 }
 
 function doLogout() {

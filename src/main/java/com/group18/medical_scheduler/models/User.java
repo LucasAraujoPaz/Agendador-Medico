@@ -1,5 +1,6 @@
 package com.group18.medical_scheduler.models;
 
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Set;
 
@@ -9,6 +10,7 @@ import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -33,6 +35,11 @@ public class User implements UserDetails, Identifiable {
 	@Id
 	@GeneratedValue
 	private Integer id;
+	
+	@NotNull
+	@OneToMany(mappedBy = "user")
+	@Column(nullable = false)
+	private Collection<Task> tasks;
 	
 	@Email
 	@NotBlank
@@ -60,6 +67,7 @@ public class User implements UserDetails, Identifiable {
 		this.email = email;
 		this.password = password;
 		this.authority = authority;
+		this.tasks = new ArrayList<>();
 	}
 
 	@Override
@@ -68,6 +76,9 @@ public class User implements UserDetails, Identifiable {
 	}
 	public String getEmail() {
 		return this.email;
+	}
+	public Collection<Task> getTasks() {
+		return tasks;
 	}
 	@JsonIgnore
 	@Override

@@ -33,7 +33,7 @@ logoutButton.addEventListener(
     "click",
     () => {
         login.doLogout();
-        index.main.innerHTML = "";
+        index.start();
     }
 );
 
@@ -45,5 +45,9 @@ const fillInnerHtml = async ({ url, element = main }) => {
     return element;
 }
 
-const index = { main, fillInnerHtml }
+function start() {
+    main.innerHTML = "";
+}
+
+const index = { main, fillInnerHtml, start }
 export { index };

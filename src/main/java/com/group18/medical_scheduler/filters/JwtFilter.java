@@ -39,7 +39,7 @@ public class JwtFilter extends OncePerRequestFilter {
 				.orElse("");
 
 		boolean headerIsOk = header.startsWith("Bearer ");
-		boolean cookieIsOk = cookie.startsWith("Bearer ");
+		boolean cookieIsOk = cookie.startsWith("Bearer_");
 		
 		if ( ! (headerIsOk || cookieIsOk)) {
 			filterChain.doFilter(request, response);

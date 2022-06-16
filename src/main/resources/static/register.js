@@ -22,13 +22,13 @@ function start() {
             return alert(reason?.message ?? "Invalid E-mail/Password.");
         }
 
-        index.main.innerHTML = "";
+        index.start();
     }
 }
 
 /** @param {import("./login.js").LoginDTO} loginDTO */
 async function doRegister(loginDTO) {
-    const response = await fetch("/users", {
+    const response = await fetch("/api/users", {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(loginDTO)
