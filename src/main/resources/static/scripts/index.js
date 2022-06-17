@@ -16,17 +16,17 @@ const logoutButton = /** @type {HTMLButtonElement} */
 
 tasksButton.addEventListener(
     "click",
-    () => fillInnerHtml({ url: "/tasks.html" })
+    () => fillInnerHtml({ url: "/templates/tasks.html" })
         .then(tasks.start)
 );
 registerButton.addEventListener(
     "click",
-    () => fillInnerHtml({ url: "/register.html" })
+    () => fillInnerHtml({ url: "/templates/register.html" })
         .then(register.start)
 );
 loginButton.addEventListener(
     "click",
-    () => fillInnerHtml({ url: "/login.html" })
+    () => fillInnerHtml({ url: "/templates/login.html" })
         .then(login.start)
 );
 logoutButton.addEventListener(

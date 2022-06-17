@@ -7,6 +7,7 @@
 		"alwaysStrict": true,
 		"checkJs": true,
 		"forceConsistentCasingInFileNames": true,
+		"moduleResolution": "node",
 		"noFallthroughCasesInSwitch": true,
 		"noImplicitAny": true,
 		"noImplicitReturns": true,
