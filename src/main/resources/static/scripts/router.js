@@ -15,14 +15,14 @@ const routes = {
     "#/logout": () => { login.doLogout(); navigate("#/"); }
 };
 
-function navigate(hash = "#") {
+async function navigate(hash = "#") {
     if (location.hash !== hash)
         return location.hash = hash;
 
     if (hash in ["", "#", "#/"])
         return routes["#/"]?.();
 
-    routes[hash]?.();
+    await routes[hash]?.();
     index.refresh();
 }
 

@@ -12,18 +12,18 @@ async function start() {
     const tbody = /** @type {HTMLTableSectionElement} */
         (document.querySelector("#tasks tbody"));
 
-    const rows = tasks.reduce((previous, current) =>
-        `${previous}
+    const rows = tasks.reduce((html, task) =>
+        `${html}
         <tr>
-            <td>${current.description}</td>
+            <td>${task.description}</td>
             <td>
-                <time datetime="${current.dueDate.toISOString()}">
-                ${current.dueDate.toLocaleString()}
+                <time datetime="${task.dueDate.toISOString()}">
+                ${task.dueDate.toLocaleString()}
                 </time>
             </td>
             <td>
-                <button class="edit" data-id="${current.id}">Edit</button>
-                <button class="delete" data-id="${current.id}">Delete</button>
+                <button class="edit" data-id="${task.id}">Edit</button>
+                <button class="delete" data-id="${task.id}">Delete</button>
             </td>
         </tr>`,
         "");
@@ -33,14 +33,16 @@ async function start() {
     const buttons = Array.from(tbody.querySelectorAll("button"));
 
     buttons.filter(button => button.classList.contains("edit"))
-        .forEach(editButton => editButton.onclick = () =>
-            index.setInnerHTML({ url: "/templates/task.html", element: index.dialog })
-                .then(_ => taskSection.start(Number(editButton.dataset["id"]))));
+        .forEach(editButton =>
+            editButton.onclick = () =>
+                index.setInnerHTML({ url: "/templates/task.html", element: index.dialog })
+                    .then(_ => taskSection.start(Number(editButton.dataset["id"]))));
 
     buttons.filter(button => button.classList.contains("delete"))
-        .forEach(deleteButton => deleteButton.onclick = () =>
-            deleteTask(Number(deleteButton.dataset["id"]))
-                .then(start));
+        .forEach(deleteButton =>
+            deleteButton.onclick = () =>
+                deleteTask(Number(deleteButton.dataset["id"]))
+                    .then(start));
 
     const addTaskButton = /** @type {HTMLButtonElement} */
         (document.querySelector("#tasks button[name='add-task']"));

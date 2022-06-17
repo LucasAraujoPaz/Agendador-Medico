@@ -1,3 +1,4 @@
+import { login } from "./login.js";
 import { router } from "./router.js";
 
 function start() {
@@ -42,9 +43,21 @@ async function deleteAccount() {
     const response = await fetch("/api/users/me", {
         method: "DELETE"
     });
-    if ( ! response.ok)
+    if (!response.ok)
         throw await response.json();
 }
 
-const register = { start, deleteAccount };
+async function onDeleteAccount() {
+    if (!confirm("Confirm deletion of account?"))
+        return;
+    try {
+        await deleteAccount();
+        login.doLogout();
+    } catch (/** @type {any} */ reason) {
+        return alert(reason?.message ?? "Error.");
+    }
+    router.navigate("#/");
+}
+
+const register = { start, onDeleteAccount };
 export { register };
