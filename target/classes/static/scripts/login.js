@@ -25,7 +25,7 @@ function start() {
 
 /** @param {LoginDTO} loginDTO */
 async function doLogin(loginDTO) {
-    const response = await fetch("/login", {
+    const response = await fetch("/api/login", {
         headers: { "Content-Type": "application/json" },
         method: "POST",
         body: JSON.stringify(loginDTO)
