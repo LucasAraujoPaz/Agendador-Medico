@@ -37,10 +37,12 @@ public class Task implements Identifiable {
 	public Task(
 			final Integer id,
 			final String description,
-			final LocalDateTime dueDate) {
+			final LocalDateTime dueDate,
+			final User user) {
 		this.id = id;
 		this.description = description;
 		this.dueDate = dueDate;
+		this.user = user;
 	}
 
 	@Override

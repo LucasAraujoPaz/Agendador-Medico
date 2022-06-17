@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.group18.medical_scheduler.interfaces.CRUD;
 import com.group18.medical_scheduler.models.Task;
 import com.group18.medical_scheduler.services.TaskService;
+import com.group18.medical_scheduler.services.UserService;
 
 @RestController
 @RequestMapping("/api/tasks")
@@ -22,11 +23,20 @@ public class TaskController implements CRUD<Task> {
 
 	@Autowired
 	private TaskService taskService; 
+	@Autowired
+	private UserService userService;
 	
 	@Override
 	@PostMapping
 	public Task create(@RequestBody @Valid final Task task) {
-		return taskService.create(task);
+		
+		var taskWithUser = new Task(
+				task.getId(), 
+				task.getDescription(), 
+				task.getDueDate(), 
+				userService.getLoggedInUser());
+		
+		return taskService.create(taskWithUser);
 	}
 
 	@Override
@@ -38,7 +48,7 @@ public class TaskController implements CRUD<Task> {
 	@Override
 	@GetMapping
 	public Iterable<Task> findAll() {
-		return taskService.findAll();
+		return userService.getLoggedInUser().getTasks();
 	}
 
 	@Override
