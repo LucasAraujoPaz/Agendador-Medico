@@ -1,4 +1,4 @@
-import { index } from "./index.js";
+import { router } from "./router.js";
 
 function start() {
     const loginForm = /** @type {HTMLFormElement} */
@@ -17,7 +17,7 @@ function start() {
             return alert(reason?.message ?? "Invalid E-mail/Password.");
         }
 
-        index.start();
+        router.navigate("#/");
     }
 }
 
@@ -42,5 +42,9 @@ function doLogout() {
     document.cookie = "Authorization=; path=/; max-age=-1;";
 }
 
-const login = { start, doLogout };
+function userIsLoggedIn() {
+    return document.cookie.includes("Authorization=Bearer");
+}
+
+const login = { start, doLogout, userIsLoggedIn };
 export { login };

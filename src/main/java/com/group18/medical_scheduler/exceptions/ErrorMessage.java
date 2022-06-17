@@ -5,11 +5,12 @@ public record ErrorMessage(
 		String message,
 		String origin) {
 	
+	public ErrorMessage(final String errorName, final String message) {
+		this(errorName, message, "N/A");
+	}
+	
 	public ErrorMessage(final Exception e) {
-		this(
-			e.getClass().getSimpleName(), 
-			e.getMessage(), 
-			(e.getStackTrace().length > 0) ? e.getStackTrace()[0].toString() : "");
+		this(e, e.getMessage());
 	}
 	
 	public ErrorMessage(final Exception e, final String message) {

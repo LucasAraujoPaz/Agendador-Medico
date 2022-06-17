@@ -1,48 +1,17 @@
-import { tasks } from "./tasks.js";
+import { router } from "./router.js";
 import { register } from "./register.js";
 import { login } from "./login.js";
 
 const main = /** @type {HTMLElement} */
     (document.querySelector("main"));
+const dialog = /** @type {HTMLElement} */
+    (document.querySelector("#dialog"));
 
-const tasksButton = /** @type {HTMLButtonElement} */
-    (document.querySelector("nav [name='tasks']"));
-const registerButton = /** @type {HTMLButtonElement} */
-    (document.querySelector("nav [name='register']"));
-const loginButton = /** @type {HTMLButtonElement} */
-    (document.querySelector("nav [name='login']"));
-const logoutButton = /** @type {HTMLButtonElement} */
-    (document.querySelector("nav [name='logout']"));
-
-tasksButton.addEventListener(
-    "click",
-    () => fillInnerHtml({ url: "/templates/tasks.html" })
-        .then(tasks.start)
-);
-registerButton.addEventListener(
-    "click",
-    () => fillInnerHtml({ url: "/templates/register.html" })
-        .then(register.start)
-);
-loginButton.addEventListener(
-    "click",
-    () => fillInnerHtml({ url: "/templates/login.html" })
-        .then(login.start)
-);
-logoutButton.addEventListener(
-    "click",
-    () => {
-        login.doLogout();
-        index.start();
-    }
-);
-
-/** @param {{url: string, element?: HTMLElement? }} _ */
-const fillInnerHtml = async ({ url, element = main }) => {
+/** @param {{url: string, element?: HTMLElement }} _ */
+const setInnerHTML = async ({ url, element = main }) => {
     const response = await fetch(url, { cache: "no-cache" });
     const html = await response.text();
-    if (element)
-        element.innerHTML = html;
+    element.innerHTML = html;
     return element;
 }
 
@@ -50,5 +19,32 @@ function start() {
     main.innerHTML = "";
 }
 
-const index = { main, fillInnerHtml, start }
+router.start();
+
+
+const deleteAccountElement = /** @type {HTMLAnchorElement} */
+    (document.getElementById("delete-account"));
+deleteAccountElement.addEventListener("click", async (event) => {
+    event.preventDefault();
+    if (!confirm("Confirm deletion of account?"))
+        return;
+    try {
+        await register.deleteAccount();
+        login.doLogout();
+    } catch (/** @type {any} */ reason) {
+        return alert(reason?.message ?? "Error.");
+    }
+    router.navigate("#/");
+});
+
+function refresh() {
+    const elements = /** @type {NodeListOf<HTMLElement>} */
+        (document.querySelectorAll(".logged-in, .guest"));
+    
+    Array.from(elements).forEach(element => element.hidden = 
+        (element.classList.contains("logged-in") && ! login.userIsLoggedIn()) ||
+        (element.classList.contains("guest") && login.userIsLoggedIn()))
+}
+
+const index = { main, dialog, setInnerHTML, start, refresh }
 export { index };

@@ -29,15 +29,16 @@
 	<header>
 		<h1>Medical Scheduler</h1>
 		<nav>
-			<button name="tasks">Tasks</button>
-			<button name="register">Register</button>
-			<button name="login">Login</button>
-			<button name="logout">Logout</button>
+			<a href="#/tasks" class="logged-in">Tasks</a>
+			<a href="#/register" class="guest">Register</a>
+			<a href="#/login" class="guest">Login</a>
+			<a href="#/logout" class="logged-in">Logout</a>
+			<a id="delete-account" href="#" class="logged-in">Delete Account</a>
 		</nav>
 	</header>
 
 	<main aria-live="polite"></main>
-	<div id="dialog"></div>
+	<div id="dialog" aria-live="polite"></div>
 
 	<footer><p><small>Medical Scheduler</small></p></footer>
 </body>

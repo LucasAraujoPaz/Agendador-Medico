@@ -1,4 +1,4 @@
-import { index } from "./index.js";
+import { router } from "./router.js";
 
 function start() {
     const registerForm = /** @type {HTMLFormElement} */
@@ -12,7 +12,7 @@ function start() {
             (registerForm.elements.namedItem("password")).value;
         const repeatedPassword = /** @type {HTMLInputElement} */
             (registerForm.elements.namedItem("confirm-password")).value;
-        
+
         if (password !== repeatedPassword)
             return alert("Passwords must be equal.");
 
@@ -22,7 +22,7 @@ function start() {
             return alert(reason?.message ?? "Invalid E-mail/Password.");
         }
 
-        index.start();
+        router.navigate("#/login");
     }
 }
 
@@ -38,5 +38,13 @@ async function doRegister(loginDTO) {
         throw await response.json();
 }
 
-const register = { start };
+async function deleteAccount() {
+    const response = await fetch("/api/users/me", {
+        method: "DELETE"
+    });
+    if ( ! response.ok)
+        throw await response.json();
+}
+
+const register = { start, deleteAccount };
 export { register };

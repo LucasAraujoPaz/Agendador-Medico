@@ -23,11 +23,18 @@ import com.group18.medical_scheduler.exceptions.ErrorMessage;
 public class ErrorHandlerController implements ErrorController {
 	
 	@RequestMapping("/error")
-	public ResponseEntity<?> handleWhiteLabelErrorPage(
+	public ResponseEntity<ErrorMessage> handleWhiteLabelErrorPage(
 			final HttpServletResponse response) {
 		
+		final int statusCode = response.getStatus();
+		final var status = HttpStatus.resolve(statusCode) == null ? 
+				HttpStatus.INTERNAL_SERVER_ERROR : HttpStatus.resolve(statusCode);
+		
 		return new ResponseEntity<>(
-				HttpStatus.resolve(response.getStatus()));
+				new ErrorMessage(
+						status.getReasonPhrase(), 
+						"Error " + statusCode + ": " + status.getReasonPhrase()), 
+				status);
 	}
 	
 	@ExceptionHandler(MethodArgumentNotValidException.class)

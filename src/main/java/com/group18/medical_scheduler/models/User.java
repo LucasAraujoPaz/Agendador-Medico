@@ -37,7 +37,7 @@ public class User implements UserDetails, Identifiable {
 	private Integer id;
 	
 	@NotNull
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", orphanRemoval = true)
 	@Column(nullable = false)
 	private Collection<Task> tasks;
 	

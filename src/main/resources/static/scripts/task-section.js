@@ -19,8 +19,12 @@ async function start(id) {
             .then(response => response.json())
             .then(t => new Task(t));
 
-        descriptionInput.value = originalTask.description; //minutes - timezoneOffset
-        dueDateInput.value = originalTask.dueDate.toISOString().slice(0, 16);
+        descriptionInput.value = originalTask.description;
+        
+        const localDate = new Date(
+            originalTask.dueDate.getTime() + originalTask.dueDate.getTimezoneOffset() * -60 * 1000);
+
+        dueDateInput.value = localDate.toISOString().slice(0, 16);
     }
 
     form.addEventListener("submit", (_event) => fetch("/api/tasks", {

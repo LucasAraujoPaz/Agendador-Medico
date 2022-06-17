@@ -1,6 +1,6 @@
 package com.group18.medical_scheduler.models;
 
-import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -26,7 +26,7 @@ public class Task implements Identifiable {
 	
 	@NotNull
 	@Column(nullable = false)
-	private LocalDateTime dueDate;
+	private ZonedDateTime dueDate;
 	
 	@JsonIgnore
 	@ManyToOne(optional = false)
@@ -37,7 +37,7 @@ public class Task implements Identifiable {
 	public Task(
 			final Integer id,
 			final String description,
-			final LocalDateTime dueDate,
+			final ZonedDateTime dueDate,
 			final User user) {
 		this.id = id;
 		this.description = description;
@@ -52,7 +52,7 @@ public class Task implements Identifiable {
 	public String getDescription() {
 		return description;
 	}
-	public LocalDateTime getDueDate() {
+	public ZonedDateTime getDueDate() {
 		return dueDate;
 	}
 	public void setUser(final User user) {

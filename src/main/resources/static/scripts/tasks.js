@@ -17,8 +17,8 @@ async function start() {
         <tr>
             <td>${current.description}</td>
             <td>
-                <time datetime="${current.dueDate}">
-                ${current.dueDate}
+                <time datetime="${current.dueDate.toISOString()}">
+                ${current.dueDate.toLocaleString()}
                 </time>
             </td>
             <td>
@@ -34,7 +34,7 @@ async function start() {
 
     buttons.filter(button => button.classList.contains("edit"))
         .forEach(editButton => editButton.onclick = () =>
-            index.fillInnerHtml({ url: "/templates/task.html", element: document.getElementById("dialog") })
+            index.setInnerHTML({ url: "/templates/task.html", element: index.dialog })
                 .then(_ => taskSection.start(Number(editButton.dataset["id"]))));
 
     buttons.filter(button => button.classList.contains("delete"))
@@ -46,7 +46,7 @@ async function start() {
         (document.querySelector("#tasks button[name='add-task']"));
 
     addTaskButton.onclick = () =>
-        index.fillInnerHtml({ url: "/templates/task.html", element: document.getElementById("dialog") })
+        index.setInnerHTML({ url: "/templates/task.html", element: index.dialog })
             .then(_ => taskSection.start());
 };
 
