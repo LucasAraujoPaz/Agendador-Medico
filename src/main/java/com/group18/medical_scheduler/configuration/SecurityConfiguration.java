@@ -45,7 +45,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 			//.antMatchers("/**").permitAll() // ALLOW FREE ACCESS
 			.antMatchers("/*", "/error", "/templates/**", "/scripts/**", "/styles/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/api/login", "/api/users").permitAll()
-			.antMatchers("/h2-console/**").hasAuthority(Authority._ADMINISTRATOR)
+			.antMatchers("/h2-console/**").hasAuthority(Authority.ADMINISTRATOR.name())
 			.antMatchers("/api/**").authenticated()
 			.anyRequest().authenticated().and()
     	.cors().and()

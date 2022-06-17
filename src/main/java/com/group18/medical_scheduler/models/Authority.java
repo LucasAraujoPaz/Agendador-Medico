@@ -4,7 +4,7 @@ public enum Authority {
 	USER,
 	ADMINISTRATOR;
 
-	// For Annotations
+	/** For Annotations */
 	public static final String 
 		_USER = "'USER'",
 		_ADMINISTRATOR = "'ADMINISTRATOR'",
