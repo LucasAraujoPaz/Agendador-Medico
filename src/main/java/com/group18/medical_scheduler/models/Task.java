@@ -55,4 +55,7 @@ public class Task implements Identifiable {
 	public LocalDateTime getDueDate() {
 		return dueDate;
 	}
+	public void setUser(final User user) {
+		this.user = user;
+	}
 }

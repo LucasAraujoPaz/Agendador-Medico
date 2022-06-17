@@ -1,4 +1,6 @@
+import { index } from "./index.js";
 import { Task } from "./Task.js";
+import { taskSection } from "./task-section.js";
 
 async function start() {
 
@@ -16,7 +18,7 @@ async function start() {
             <td>${current.description}</td>
             <td>
                 <time datetime="${current.dueDate}">
-                ${current.dueDate.toLocaleString()}
+                ${current.dueDate}
                 </time>
             </td>
             <td>
@@ -31,7 +33,12 @@ async function start() {
     const buttons = Array.from(tbody.querySelectorAll("button"));
 
     buttons.filter(button => button.classList.contains("edit"))
-        .forEach(editButton => editButton.onclick = () => { });
+        .forEach(editButton => editButton.onclick = () =>
+            index.fillInnerHtml({ url: "/templates/task.html", element: document.getElementById("dialog") })
+                .then(_ => taskSection.start({
+                    id: Number(editButton.dataset["id"]),
+                    method: "PUT"
+                })));
 
     buttons.filter(button => button.classList.contains("delete"))
         .forEach(deleteButton => deleteButton.onclick = () =>

@@ -42,7 +42,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(final HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			//.antMatchers("/**").permitAll() // ALLOW FREE ACCESS
-			.antMatchers("/*", "/error", "/h2-console/**").permitAll()
+			.antMatchers("/*", "/error", "/h2-console/**",
+					"/templates/**", "/scripts/**", "/styles/**").permitAll()
 			.antMatchers(HttpMethod.POST, "/login", "/api/users").permitAll()
 			.antMatchers("/api/**").authenticated()
 			.anyRequest().authenticated().and()

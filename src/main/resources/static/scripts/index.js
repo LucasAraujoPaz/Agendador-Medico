@@ -37,11 +37,12 @@ logoutButton.addEventListener(
     }
 );
 
-/** @param {{url: string, element?: HTMLElement}} _ */
+/** @param {{url: string, element?: HTMLElement? }} _ */
 const fillInnerHtml = async ({ url, element = main }) => {
     const response = await fetch(url, { cache: "no-cache" });
     const html = await response.text();
-    element.innerHTML = html;
+    if (element)
+        element.innerHTML = html;
     return element;
 }
 

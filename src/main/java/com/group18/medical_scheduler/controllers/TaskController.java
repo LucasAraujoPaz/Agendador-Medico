@@ -30,13 +30,9 @@ public class TaskController implements CRUD<Task> {
 	@PostMapping
 	public Task create(@RequestBody @Valid final Task task) {
 		
-		var taskWithUser = new Task(
-				task.getId(), 
-				task.getDescription(), 
-				task.getDueDate(), 
-				userService.getLoggedInUser());
+		task.setUser(userService.getLoggedInUser());
 		
-		return taskService.create(taskWithUser);
+		return taskService.create(task);
 	}
 
 	@Override
@@ -54,6 +50,9 @@ public class TaskController implements CRUD<Task> {
 	@Override
 	@PutMapping
 	public Task update(@RequestBody @Valid final Task task) {
+		
+		task.setUser(userService.getLoggedInUser());
+		
 		return taskService.update(task);
 	}
 
