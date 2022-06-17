@@ -15,6 +15,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.group18.medical_scheduler.filters.JwtFilter;
+import com.group18.medical_scheduler.models.Authority;
 import com.group18.medical_scheduler.services.TokenService;
 import com.group18.medical_scheduler.services.UserService;
 
@@ -42,9 +43,9 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(final HttpSecurity http) throws Exception {
 		http.authorizeRequests()
 			//.antMatchers("/**").permitAll() // ALLOW FREE ACCESS
-			.antMatchers("/*", "/error", "/h2-console/**",
-					"/templates/**", "/scripts/**", "/styles/**").permitAll()
-			.antMatchers(HttpMethod.POST, "/login", "/api/users").permitAll()
+			.antMatchers("/*", "/error", "/templates/**", "/scripts/**", "/styles/**").permitAll()
+			.antMatchers(HttpMethod.POST, "/api/login", "/api/users").permitAll()
+			.antMatchers("/h2-console/**").hasAuthority(Authority._ADMINISTRATOR)
 			.antMatchers("/api/**").authenticated()
 			.anyRequest().authenticated().and()
     	.cors().and()
