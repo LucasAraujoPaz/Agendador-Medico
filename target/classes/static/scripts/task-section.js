@@ -1,8 +1,9 @@
 import { Task } from "./Task.js";
 import { tasks } from "./tasks.js";
 
-/** @param {{id: number, method: "POST" | "PUT"}} _ */
-async function start({ id, method }) {
+/** @param {number} [id] */
+async function start(id) {
+    const method = id ? "PUT" : "POST";
 
     const dialog = /** @type {HTMLDialogElement} */
         (document.querySelector("#task dialog"));
@@ -21,8 +22,6 @@ async function start({ id, method }) {
         descriptionInput.value = originalTask.description; //minutes - timezoneOffset
         dueDateInput.value = originalTask.dueDate.toISOString().slice(0, 16);
     }
-
-
 
     form.addEventListener("submit", (_event) => fetch("/api/tasks", {
         method,

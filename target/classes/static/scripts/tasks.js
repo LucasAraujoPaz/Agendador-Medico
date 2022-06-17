@@ -35,15 +35,19 @@ async function start() {
     buttons.filter(button => button.classList.contains("edit"))
         .forEach(editButton => editButton.onclick = () =>
             index.fillInnerHtml({ url: "/templates/task.html", element: document.getElementById("dialog") })
-                .then(_ => taskSection.start({
-                    id: Number(editButton.dataset["id"]),
-                    method: "PUT"
-                })));
+                .then(_ => taskSection.start(Number(editButton.dataset["id"]))));
 
     buttons.filter(button => button.classList.contains("delete"))
         .forEach(deleteButton => deleteButton.onclick = () =>
             deleteTask(Number(deleteButton.dataset["id"]))
                 .then(start));
+
+    const addTaskButton = /** @type {HTMLButtonElement} */
+        (document.querySelector("#tasks button[name='add-task']"));
+
+    addTaskButton.onclick = () =>
+        index.fillInnerHtml({ url: "/templates/task.html", element: document.getElementById("dialog") })
+            .then(_ => taskSection.start());
 };
 
 /** @param {number} id */
