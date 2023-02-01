@@ -6,6 +6,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.group18.medical_scheduler.exceptions.UserNotFoundException;
 import com.group18.medical_scheduler.interfaces.CRUDService;
 import com.group18.medical_scheduler.models.User;
 import com.group18.medical_scheduler.repositories.UserRepository;
@@ -34,7 +35,7 @@ public class UserService implements CRUDService<User> {
 	public User findByEmail(final String email) {
 		return userRepository
 				.findByEmail(email)
-				.orElseThrow();
+				.orElseThrow(() -> new UserNotFoundException());
 	}
 	
 	public User getLoggedInUser() {

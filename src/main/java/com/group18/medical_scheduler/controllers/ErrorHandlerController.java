@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.group18.medical_scheduler.exceptions.ErrorMessage;
+import com.group18.medical_scheduler.exceptions.UserNotFoundException;
 
 @RestController
 @ControllerAdvice
@@ -63,6 +64,14 @@ public class ErrorHandlerController implements ErrorController {
 
 	    return new ErrorMessage(exception, message);
 	}
+	
+	
+	@ExceptionHandler(UserNotFoundException.class)
+	@ResponseStatus(HttpStatus.NOT_FOUND)
+	public ErrorMessage handle(final UserNotFoundException exception) {
+
+	    return new ErrorMessage(exception);
+    }
 	
 	@ExceptionHandler(Exception.class)
 	@ResponseStatus
