@@ -5,6 +5,7 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.util.Assert;
@@ -28,10 +29,12 @@ public class SecurityController {
 	
 	@PostMapping("/login")
 	public ResponseEntity<String> login(@RequestBody @Valid final LoginDTO loginDTO) {
-		
-		final String token = authenticate(loginDTO.email(), loginDTO.password());
-		
-		return ResponseEntity.ok(token);
+		try {
+			final String token = authenticate(loginDTO.email(), loginDTO.password());
+			return ResponseEntity.ok(token);			
+		} catch (Throwable t) {
+			throw new BadCredentialsException("Invalid login/password.");
+		}
 	}
 	
 	private String authenticate(final String email, final String password) {
