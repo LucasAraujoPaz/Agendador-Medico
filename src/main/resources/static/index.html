@@ -27,19 +27,25 @@
 <body>
 	<noscript>JavaScript must be enabled</noscript>
 	<header>
-		<h1>Medical Scheduler</h1>
+	<div class="p-3 mb-2 bg-dark text-dark bg-opacity-10"><h1>Medical Scheduler</h1></div>
+		
 		<nav>
-			<a href="#/tasks" class="logged-in">Tasks</a>
-			<a href="#/register" class="guest">Register</a>
-			<a href="#/login" class="guest">Login</a>
-			<a href="#/logout" class="logged-in">Logout</a>
-			<a id="delete-account" href="#" class="logged-in">Delete Account</a>
+			<a href="#/tasks" class="logged-in p-3 mb-2">Tasks</a>
+			<a href="#/register" class="guest p-3 mb-2">Register</a>
+			<a href="#/login" class="guest p-3 mb-2">Login</a>
+			<a href="#/logout" class="logged-in p-3 mb-2">Logout</a>
+			<a id="delete-account" href="#" class="logged-in p-3 mb-2">Delete Account</a>
 		</nav>
 	</header>
 
 	<main aria-live="polite"></main>
 	<div id="dialog" aria-live="polite"></div>
 
-	<footer><p><small>Medical Scheduler</small></p></footer>
+	<footer>
+		<div class="p-3 mb-2 position-absolute bottom-0 start-0">
+			<p><small>Medical Scheduler &copy; 2023</small></p>
+		</div>
+	</footer>
 </body>
 </html>
+
